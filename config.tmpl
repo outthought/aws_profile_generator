@@ -1,0 +1,9 @@
+%{ for account_name, account_number in accounts }
+[profile ${account_name}]
+duration_seconds = ${duration_seconds}
+mfa_serial       = ${mfa_serial}
+output           = ${output}
+region           = ${region}
+role_arn         = arn:aws:iam::${account_number}:role/${role_name}
+source_profile   = default
+%{ endfor ~}

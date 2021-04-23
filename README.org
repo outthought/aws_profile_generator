@@ -1,0 +1,27 @@
+* Generate AWS Profile Config From Template
+With multiple AWS accounts, [[https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html][configuring the AWS CLI]] can be repetitive. Use this terraform configuration to generate a config file with profiles from values.
+
+** Instructions
+Run terraform to generate a file named =config=.
+Copy =config= into =~/.aws/=.
+
+** Variables
+The variable =accounts= is a map of =account_name= to =account_number=.
+
+Example.
+#+begin_example hcl
+accounts = {
+  projecta = "123456789012"
+  projectb = "987654321002"
+}
+#+end_example
+
+It is used to name each profile block with the =account_name=, and to interpolate the value of =role_arn=, (=account_number= along with =role_name=).
+#+begin_example conf
+role_arn = arn:aws:iam::${account_number}:role/${role_name}
+#+end_example
+
+See =config.tmpl=.
+
+See =variables.tf=.
+
